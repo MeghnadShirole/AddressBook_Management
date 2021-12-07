@@ -1,4 +1,4 @@
-package com.service;
+package com.com.main;
 
 public class AddressBookMain {
     public static void main(String[] args) {
