@@ -47,4 +47,16 @@ public class AddressBookService {
             return addressBookDBService.getContactData(startDate, endDate);
         return null;
     }
+
+    public List<PersonInformation> readContactForParticularCity(IOService ioService, String city) {
+        if( ioService.equals(IOService.DB_IO) )
+            return addressBookDBService.getContactForParticularCity(city);
+        return null;
+    }
+
+    public List<PersonInformation> readContactForParticularState(IOService ioService, String state) {
+        if( ioService.equals(IOService.DB_IO) )
+            return addressBookDBService.getContactForParticularState(state);
+        return null;
+    }
 }

@@ -122,4 +122,14 @@ public class AddressBookDBService {
         String sql = String.format("SELECT * FROM contacts WHERE date_field BETWEEN '%s' AND '%s';", Date.valueOf(startDate), Date.valueOf(endDate));
         return getAddressBookDataUsingDB(sql);
     }
+
+    public List<PersonInformation> getContactForParticularCity(String city) {
+        String sql = String.format("SELECT * FROM contacts WHERE City = '%s';", city);
+        return getAddressBookDataUsingDB(sql);
+    }
+
+    public List<PersonInformation> getContactForParticularState(String state) {
+        String sql = String.format("SELECT * FROM contacts WHERE State = '%s';", state);
+        return getAddressBookDataUsingDB(sql);
+    }
 }
