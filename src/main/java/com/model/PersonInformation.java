@@ -1,11 +1,13 @@
 package com.model;
 
+import java.util.Objects;
+
 public class PersonInformation {
     int id;
-    String first_name;
+    public String first_name;
     String address;
     String city;
-    String state;
+    public String state;
     int zip;
     int mobilenumber;
     String email;
@@ -26,5 +28,13 @@ public class PersonInformation {
     public PersonInformation(int id,String first_name, String address, String city, String state, int zip, int mobilenumber, String email) {
         this(first_name, address, city, state, zip, mobilenumber, email);
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonInformation that = (PersonInformation) o;
+        return id == that.id && Objects.equals(first_name, that.first_name) && Objects.equals(state, that.state);
     }
 }
