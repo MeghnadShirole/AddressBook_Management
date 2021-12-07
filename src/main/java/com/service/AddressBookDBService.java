@@ -3,12 +3,16 @@ package com.service;
 import com.model.PersonInformation;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class AddressBookDBService {
+
+
     private static AddressBookDBService addressBookDBService;
+    private PreparedStatement contactDataStatement;
 
     public static AddressBookDBService getInstance() {
         if ( addressBookDBService == null)
@@ -18,10 +22,10 @@ public class AddressBookDBService {
 
     public List<PersonInformation> readData() {
         String sql = "SELECT * FROM contacts";
-        return getAddressBokkDataUsingDB(sql);
+        return getAddressBookDataUsingDB(sql);
     }
 
-    private List<PersonInformation> getAddressBokkDataUsingDB(String sql) {
+    private List<PersonInformation> getAddressBookDataUsingDB(String sql) {
         List<PersonInformation> contactList = new ArrayList<>();
         try (Connection connection = this.getConnection()) {
             Statement statement = connection.createStatement();
@@ -35,7 +39,7 @@ public class AddressBookDBService {
                 int zip = result.getInt("Zip");
                 int phoneNo = result.getInt("PhoneNumber");
                 String email = result.getString("Email");
-                contactList.add(new PersonInformation(id, fname, address, city, state, zip, phoneNo, email));
+                contactList.add(new PersonInformation(id, fname,address, city, state, zip, phoneNo, email));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -112,5 +116,10 @@ public class AddressBookDBService {
         connection = DriverManager.getConnection(jdbcURL, userName, password);
         System.out.println("Connection is successful! " +connection);
         return connection;
+    }
+
+    public List<PersonInformation> getContactData(LocalDate startDate, LocalDate endDate) {
+        String sql = String.format("SELECT * FROM contacts WHERE date_field BETWEEN '%s' AND '%s';", Date.valueOf(startDate), Date.valueOf(endDate));
+        return getAddressBookDataUsingDB(sql);
     }
 }

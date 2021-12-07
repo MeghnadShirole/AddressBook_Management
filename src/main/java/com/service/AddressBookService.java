@@ -1,6 +1,8 @@
 package com.service;
 
 import com.model.PersonInformation;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public class AddressBookService {
@@ -38,5 +40,11 @@ public class AddressBookService {
     public boolean checkContactInSyncWithDB(String name) {
         List<PersonInformation> personInfoDataList = addressBookDBService.getContactData(name);
         return personInfoDataList.get(0).equals(getContactData(name));
+    }
+
+    public List<PersonInformation> readContactForDateRange(IOService ioService, LocalDate startDate, LocalDate endDate) {
+        if( ioService.equals(IOService.DB_IO) )
+            return addressBookDBService.getContactData(startDate, endDate);
+        return null;
     }
 }
